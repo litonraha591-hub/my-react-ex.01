@@ -7,6 +7,17 @@ import Count from './Count'
 import DecreaseCount from './DecreaseCount'
 import IncreaseCounter from './IncreaseCounter'
 import IncreaseDecrease from './IncreaseDecrease'
+import ShowHide from './ShowHide'
+import NewShowHide from './NewShowHide'
+import Photos from './Photos'
+import { Suspense } from 'react'
+
+const photoDataPromise = async()=>{
+  const res = await fetch('https://jsonplaceholder.typicode.com/photos')
+  const data = await res.json();
+  return data;
+}
+
 function App() {
  
 
@@ -39,8 +50,16 @@ function App() {
         <DecreaseCount></DecreaseCount>
         <IncreaseCounter></IncreaseCounter>
         <IncreaseDecrease></IncreaseDecrease>
+       {/* <ShowHide></ShowHide> */}
+        <NewShowHide></NewShowHide>
 
-    </>
+       <Suspense fallback={<p>Loading Photos.....</p>}>
+
+         <Photos photoDataPromise = {photoDataPromise()}></Photos>    
+       </Suspense>
+        
+        
+        </>
   )
 }
 
